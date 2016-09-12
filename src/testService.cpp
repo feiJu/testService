@@ -17,9 +17,9 @@
 
 using namespace std;
 
-#define SLEEP_TIME 5000 //¼ä¸ôÊ±¼ä
+#define SLEEP_TIME 5000 //é—´éš”æ—¶é—´
 
-string FILE_PATH = "C:\\log.txt"; //ĞÅÏ¢Êä³öÎÄ¼ş
+string FILE_PATH = "C:\\log.txt"; //ä¿¡æ¯è¾“å‡ºæ–‡ä»¶
 
 bool brun=false;
 
@@ -71,7 +71,7 @@ int WriteToLog(char* str)
     hour = timeinfo->tm_hour;
     min = timeinfo->tm_min;
     sec = timeinfo->tm_sec;
-//    printf ( "µ±Ç°Ê±¼ä:%4d-%02d-%02d %02d:%02d:%02d\n\n",year, month,day,hour,min,sec);
+//    printf ( "å½“å‰æ—¶é—´:%4d-%02d-%02d %02d:%02d:%02d\n\n",year, month,day,hour,min,sec);
 
     char now_time[100];
     sprintf(now_time,"[%4d-%02d-%02d %02d:%02d:%02d]",year, month,day,hour,min,sec);
@@ -100,7 +100,7 @@ void WINAPI ServiceMain(int argc, char** argv)
 
     servicestatus.dwCurrentState = SERVICE_START_PENDING;
 
-    servicestatus.dwControlsAccepted = SERVICE_ACCEPT_SHUTDOWN|SERVICE_ACCEPT_STOP;//ÔÚ±¾ÀıÖĞÖ»½ÓÊÜÏµÍ³¹Ø»úºÍÍ£Ö¹·şÎñÁ½ÖÖ¿ØÖÆÃüÁî
+    servicestatus.dwControlsAccepted = SERVICE_ACCEPT_SHUTDOWN|SERVICE_ACCEPT_STOP;//åœ¨æœ¬ä¾‹ä¸­åªæ¥å—ç³»ç»Ÿå…³æœºå’Œåœæ­¢æœåŠ¡ä¸¤ç§æ§åˆ¶å‘½ä»¤
 
     servicestatus.dwWin32ExitCode = 0;
 
@@ -124,13 +124,12 @@ void WINAPI ServiceMain(int argc, char** argv)
 
     WriteToLog("RegisterServiceCtrlHandler success");
 
-    //ÏòSCM ±¨¸æÔËĞĞ×´Ì¬
-
+    //å‘SCM æŠ¥å‘Šè¿è¡ŒçŠ¶æ€
     servicestatus.dwCurrentState = SERVICE_RUNNING;
 
     SetServiceStatus (hstatus, &servicestatus);
 
-    //ÏÂÃæ¾Í¿ªÊ¼ÈÎÎñÑ­»·ÁË£¬Äã¿ÉÒÔÌí¼ÓÄã×Ô¼ºÏ£Íû·şÎñ×öµÄ¹¤×÷
+    //ä¸‹é¢å°±å¼€å§‹ä»»åŠ¡å¾ªç¯äº†ï¼Œä½ å¯ä»¥æ·»åŠ ä½ è‡ªå·±å¸Œæœ›æœåŠ¡åšçš„å·¥ä½œ
 
     brun=true;
 
@@ -201,20 +200,20 @@ int main(){
 //	WriteToLog("------------ test service -------------");
 //	char   crnPath[MAX_PATH];
 //	getcwd(crnPath, MAX_PATH);
-//	//printf( "The   current   directory   is:   %s ",   crnPath);	// »ñÈ¡µ±Ç°¹¤³ÌÂ·¾¶
+//	//printf( "The   current   directory   is:   %s ",   crnPath);	// è·å–å½“å‰å·¥ç¨‹è·¯å¾„
 //	WriteToLog(crnPath);
-//	// »ñÈ¡exeÂ·¾¶
+//	// è·å–exeè·¯å¾„
 //	char chpath[MAX_PATH];
 //	GetModuleFileName(NULL,(LPSTR)chpath,sizeof(chpath));
 //	std::cout<<chpath<<std::endl;
 //	WriteToLog("------------ exe ----------------");
 //	WriteToLog(chpath);
 
-	//»ñÈ¡µ±Ç°Ä£¿éËùÔÚÂ·¾¶
+	//è·å–å½“å‰æ¨¡å—æ‰€åœ¨è·¯å¾„
 	char szFilePath[MAX_PATH];//szExePath[MAX_PATH];
 	if(GetModuleFileName(NULL,szFilePath,MAX_PATH)>0)
 	{
-	        (*strrchr(szFilePath,'\\'))='\0';//¶ªµôÎÄ¼şÃû£¬µÃµ½Â·¾¶
+	        (*strrchr(szFilePath,'\\'))='\0';//ä¸¢æ‰æ–‡ä»¶åï¼Œå¾—åˆ°è·¯å¾„
 	}
 
 	FILE_PATH = (string) szFilePath+"\\"+"log.txt";
